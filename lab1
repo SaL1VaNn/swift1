@@ -1,0 +1,96 @@
+struct DesktopPC {
+    var processorName: String
+    var motherboardModel: String?
+    var ramSize: Int?
+    var usbPortsCount: Int?
+}
+
+enum LaptopType: String {
+    case gaming
+    case ultrabook
+    case business
+    case aiGaming
+    
+    
+    func description()->String{
+        switch self {
+            case gaming:
+            return "This is tuff gaming note"
+            
+            default:
+            return "Its not tuf "
+            // case ultrabook:
+            // return "This is ultra"
+            
+            // case business:
+            // return "This is  business"
+            
+            // case aiGaming:
+            // return "This is aiGaming"
+            
+        }
+    }
+}
+
+struct Laptop {
+    var model: String
+    var processor: String
+    var ramSize: Int?
+    var usbPortsCount: Int?
+    var type: LaptopType
+
+
+    // Метод для виведення опису ноутбука
+    func laptopDescription() -> String {
+        var description = "Laptop Model: \(model)\nProcessor: \(processor)\nType: \(type.rawValue)"
+        if let ramSize = ramSize {
+            description += "\nRAM Size: \(ramSize) GB"
+        } else {
+            description += "\nRAM Size: Not Specified"
+        }
+        if let usbPortsCount = usbPortsCount {
+            description += "\nUSB Ports: \(usbPortsCount)"
+        } else {
+            description += "\nUSB Ports: Not Specified"
+        }
+        return description
+    }
+}
+
+// Функція для виведення опису ноутбука
+func laptopDescription(laptop: Laptop) -> String {
+    return laptop.laptopDescription()
+}
+
+// Масив ноутбуків
+let laptops = [
+    Laptop(model: "Dell XPS 13", processor: "Intel Core i7", ramSize: 16, usbPortsCount: 2, type: .ultrabook),
+    Laptop(model: "Acer Predator Helios 300", processor: "Intel Core i7", ramSize: 32, usbPortsCount: 3, type: .gaming),
+    Laptop(model: "Lenovo ThinkPad X1", processor: "Intel Core i5", ramSize: nil, usbPortsCount: nil, type: .business)
+]
+
+// Виведення характеристик кожного ноутбука
+for laptop in laptops {
+    print(laptopDescription(laptop: laptop))
+}
+
+// Клас User
+class User {
+    var name: String
+    var laptop: Laptop?
+
+    init(name: String, laptop: Laptop?) {
+        self.name = name
+        self.laptop = laptop
+    }
+
+    // Метод для виведення інформації про ноутбук користувача
+    func printLaptopInfo() {
+        if let laptop = laptop {
+            print("User: \(name)\n\(laptop.laptopDescription())")
+        } else {
+            print("User: \(name)\nNo laptop assigned.")
+        }
+    }
+}
+
